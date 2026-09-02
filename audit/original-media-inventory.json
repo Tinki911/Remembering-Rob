@@ -1,5 +1,5 @@
 {
-  "scope": "entire Git history of Tinki911/gkonopkaart rob-map",
+  "scope": "entire Git history of Tinki911/gkonopkaart rob-map; JS executed in sandbox",
   "commits_scanned": 47,
   "unique_source_versions_scanned": 44,
   "location_summary": {
@@ -10,16 +10,22 @@
       "binary_bytes": 25020
     },
     "giants": {
-      "unique_photos": 3,
+      "unique_photos": 4,
       "unique_embedded_videos": 2,
       "unique_youtube_links": 0,
-      "binary_bytes": 19613
+      "binary_bytes": 23568
     },
     "glenariffe": {
-      "unique_photos": 4,
+      "unique_photos": 5,
       "unique_embedded_videos": 0,
       "unique_youtube_links": 0,
-      "binary_bytes": 25374
+      "binary_bytes": 35223
+    },
+    "slaters": {
+      "unique_photos": 1,
+      "unique_embedded_videos": 0,
+      "unique_youtube_links": 0,
+      "binary_bytes": 7446
     },
     "idwal": {
       "unique_photos": 0,
@@ -34,7 +40,7 @@
       "binary_bytes": 0
     }
   },
-  "unique_binary_files": 17,
+  "unique_binary_files": 20,
   "unique_youtube_links": 3,
   "records": [
     {
@@ -129,6 +135,19 @@
       "duplicate_of": ""
     },
     {
+      "location": "glenariffe",
+      "kind": "image",
+      "format": "jpeg",
+      "bytes": 9849,
+      "sha256": "ddf9b36b2c27f44b0f7026c711ee41ae64582fbdcf7bef93d83d74df295da218",
+      "source_path": "rob-map/media-glenariffe.js",
+      "source_commit": "60135204abc6bf28bfb70a592541b5f25d00240c",
+      "source_blob_sha256": "589a0670277aaf1149decee217a81cffe76ec7e5d9cc803b9343e0da9168d464",
+      "extracted_path": "audit/original-media/glenariffe/glenariffe-image-001.jpg",
+      "is_duplicate": false,
+      "duplicate_of": ""
+    },
+    {
       "location": "idwal",
       "kind": "youtube",
       "format": "url",
@@ -157,6 +176,19 @@
       "duplicate_of": "",
       "url": "https://youtube.com/shorts/4RnIPlU_Rew?is=mT9hHde0V4Q7F-Ve|https://i.ytimg.com/vi/4RnIPlU_Rew/hqdefault.jpg",
       "thumbnail": ""
+    },
+    {
+      "location": "slaters",
+      "kind": "image",
+      "format": "jpeg",
+      "bytes": 7446,
+      "sha256": "c9315ebc429b1df2be1a68c99c0ce20f26bb63501bfb970822cb7cf5166cf53e",
+      "source_path": "rob-map/media-slaters.js",
+      "source_commit": "60135204abc6bf28bfb70a592541b5f25d00240c",
+      "source_blob_sha256": "4fc806667c4cab55c4ac292f48912a5ae35ef3dbc6bf818b95769142e7b056ff",
+      "extracted_path": "audit/original-media/slaters/slaters-image-001.jpg",
+      "is_duplicate": false,
+      "duplicate_of": ""
     },
     {
       "location": "emerald",
@@ -212,6 +244,19 @@
     },
     {
       "location": "giants",
+      "kind": "image",
+      "format": "jpeg",
+      "bytes": 3955,
+      "sha256": "197e0cb80b24a50e31fb34ca6e66700aba95964c5de06df24cbf7afc24bcf12a",
+      "source_path": "rob-map/media-ultra-giants.js",
+      "source_commit": "60135204abc6bf28bfb70a592541b5f25d00240c",
+      "source_blob_sha256": "91d3c71ea96bbab9c7ea9cbf1822d13e59e8e01b31816858d98c18620e014ee4",
+      "extracted_path": "audit/original-media/giants/giants-image-004.jpg",
+      "is_duplicate": false,
+      "duplicate_of": ""
+    },
+    {
+      "location": "giants",
       "kind": "video",
       "format": "mp4",
       "bytes": 5550,
@@ -232,7 +277,7 @@
       "source_path": "rob-map/media/glenariffe-01.js",
       "source_commit": "60135204abc6bf28bfb70a592541b5f25d00240c",
       "source_blob_sha256": "4c3ed68f6b33c3ef6fa844819285957edba00fed4b91083f79529eae337fe058",
-      "extracted_path": "audit/original-media/glenariffe/glenariffe-image-001.jpg",
+      "extracted_path": "audit/original-media/glenariffe/glenariffe-image-002.jpg",
       "is_duplicate": false,
       "duplicate_of": ""
     },
@@ -267,22 +312,7 @@
       "thumbnail": ""
     },
     {
-      "location": "idwal",
-      "kind": "youtube",
-      "format": "url",
-      "bytes": 0,
-      "sha256": "5fa3793199dccaa8fb95c64448faf169980603d66a55cec323cc32713e1e2ff2",
-      "source_path": "rob-map/live.html",
-      "source_commit": "d51ee842f169ab71e6878cd67e16c00cf89b618e",
-      "source_blob_sha256": "da73fd90933ac0a3c9cb70c02e659ef5d632bf00e0580357c6d1131bad67bd56",
-      "extracted_path": "",
-      "is_duplicate": true,
-      "duplicate_of": "rob-map/media-idwal.js",
-      "url": "https://youtube.com/shorts/4RnIPlU_Rew?is=mT9hHde0V4Q7F-Ve",
-      "thumbnail": "https://i.ytimg.com/vi/4RnIPlU_Rew/hqdefault.jpg"
-    },
-    {
-      "location": "idwal",
+      "location": "map-page",
       "kind": "youtube",
       "format": "url",
       "bytes": 0,
@@ -318,7 +348,7 @@
       "source_path": "rob-map/media-glenariffe.js",
       "source_commit": "b2ee1e48f0f2ed27804c933fecdbfebb5596c725",
       "source_blob_sha256": "a5c9de4190b96fec0779f36d44f24131d34f2f6dff90244c3c307cdd5f3d58b9",
-      "extracted_path": "audit/original-media/glenariffe/glenariffe-image-002.jpg",
+      "extracted_path": "audit/original-media/glenariffe/glenariffe-image-003.jpg",
       "is_duplicate": false,
       "duplicate_of": ""
     },
@@ -344,7 +374,7 @@
       "source_path": "rob-map/media-glenariffe.js",
       "source_commit": "e96c0cdcff67679647ff64a2def8c6c5ac49c39d",
       "source_blob_sha256": "1b514795e04557ec028fff054f6fc308b7bc08bc2756a4738285a7443cc42f97",
-      "extracted_path": "audit/original-media/glenariffe/glenariffe-image-003.jpg",
+      "extracted_path": "audit/original-media/glenariffe/glenariffe-image-004.jpg",
       "is_duplicate": false,
       "duplicate_of": ""
     },
@@ -357,7 +387,7 @@
       "source_path": "rob-map/media-glenariffe.js",
       "source_commit": "1095a17c18f64f0a2142d4786d07ba9d09ebe661",
       "source_blob_sha256": "d53c05a86ffe58c377c9dde57a01cfd6b6e8bb31803016bf5e08e0249b93824b",
-      "extracted_path": "audit/original-media/glenariffe/glenariffe-image-004.jpg",
+      "extracted_path": "audit/original-media/glenariffe/glenariffe-image-005.jpg",
       "is_duplicate": false,
       "duplicate_of": ""
     }

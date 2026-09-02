@@ -1,20 +1,21 @@
 # Original memorial media audit
 
-Scope: **entire Git history** of `Tinki911/gkonopkaart`, restricted to `rob-map/` JavaScript and HTML files.
+Scope: **entire Git history** of `Tinki911/gkonopkaart`, restricted to `rob-map/`. Historical media JavaScript was executed in an isolated sandbox so the original `ROB_MEDIA` arrays could be recovered exactly.
 
 This audit is independent of the live Remembering Rob page and does **not** include new Dropbox uploads.
 
 | Location | Unique photos | Unique embedded videos | Unique YouTube links |
 |---|---:|---:|---:|
 | emerald | 7 | 0 | 0 |
-| giants | 3 | 2 | 0 |
-| glenariffe | 4 | 0 | 0 |
+| giants | 4 | 2 | 0 |
+| glenariffe | 5 | 0 | 0 |
 | idwal | 0 | 1 | 2 |
 | map-page | 0 | 0 | 1 |
+| slaters | 1 | 0 | 0 |
 
 Commits scanned: **47**
 Unique historical source-file versions scanned: **44**
-Unique extracted image/video binaries: **17**
+Unique extracted image/video binaries: **20**
 Unique YouTube links found: **3**
 
 Every unique embedded image/video has been decoded into `audit/original-media/<location>/`.
