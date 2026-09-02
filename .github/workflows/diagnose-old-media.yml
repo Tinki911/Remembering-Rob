@@ -1,0 +1,37 @@
+name: Diagnose old memorial media
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/diagnose-old-media.yml'
+permissions:
+  contents: read
+jobs:
+  diagnose:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clone old repo and count raw media markers
+        run: |
+          git clone --quiet --mirror https://github.com/Tinki911/gkonopkaart.git old.git
+          echo 'BRANCHES:'
+          git --git-dir=old.git branch -a
+          for f in media-slaters.js media-colorado.js media-emerald.js media-ultra-emerald.js media-giants.js media-ultra-giants.js media-idwal.js media-glenariffe.js; do
+            echo "--- $f ---"
+            git --git-dir=old.git show refs/heads/gh-pages:rob-map/$f > /tmp/x || true
+            wc -c /tmp/x
+            printf 'image markers: '; grep -o 'data:image' /tmp/x | wc -l
+            printf 'video markers: '; grep -o 'data:video' /tmp/x | wc -l
+            printf 'youtube markers: '; grep -Eo 'youtube\.com|youtu\.be' /tmp/x | wc -l
+            python - "$f" <<'PY'
+import re,sys,base64
+p='/tmp/x'; t=open(p,errors='replace').read(); f=sys.argv[1]
+for m in re.finditer(r'data:(image|video)/([^;,\s]+);base64,',t,re.I):
+    tail=t[m.end():]; ends=[i for i in (tail.find("'"),tail.find('"')) if i>=0]
+    raw=tail[:min(ends)] if ends else ''
+    b64=''.join(ch for ch in raw if ch.isalnum() or ch in '+/=')
+    print('prefix',m.group(1),m.group(2),'rawchars',len(raw),'b64chars',len(b64),'mod4',len(b64)%4)
+    try:
+        d=base64.b64decode(b64,validate=False); print('decoded bytes',len(d),d[:8].hex())
+    except Exception as e: print('decode error',repr(e))
+PY
+          done
