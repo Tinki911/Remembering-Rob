@@ -23,7 +23,7 @@ IMAGE_EXTS = {".jpg", ".jpeg", ".png", ".webp", ".gif"}
 VIDEO_EXTS = {".mp4", ".mov", ".m4v", ".webm"}
 ALLOWED = IMAGE_EXTS | VIDEO_EXTS
 MAX_WEB_VIDEO = 45 * 1024 * 1024
-THUMB_SIZE = 420
+THUMB_SIZE = 200
 
 def open_dropbox(req):
     try:
