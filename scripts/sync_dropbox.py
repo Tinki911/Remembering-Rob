@@ -50,7 +50,8 @@ def list_files(path):
     while data.get("has_more"):
         data = api("files/list_folder/continue", {"cursor": data["cursor"]})
         entries += data.get("entries", [])
-    return [e for e in entries if e.get(".tag") == "file"]
+    files = [e for e in entries if e.get(".tag") == "file"]
+    return sorted(files, key=lambda e: e.get("name", "").lower())
 
 def download(path, target):
     req = urllib.request.Request(
@@ -86,7 +87,7 @@ def make_image_thumbnail(image, thumb):
         subprocess.run(cmd, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
         return thumb.exists()
     except subprocess.CalledProcessError:
-        print(f"WARNING: thumbnail failed for {image.name}; gallery uses original image")
+        print(f"WARNING: thumbnail failed for {image.name}; gallery will fall back to original image")
         return False
 
 def make_poster(video, poster):
