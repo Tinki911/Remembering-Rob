@@ -81,22 +81,16 @@ def thumb_filter():
     return f"scale={THUMB_SIZE}:{THUMB_SIZE}:force_original_aspect_ratio=increase,crop={THUMB_SIZE}:{THUMB_SIZE}"
 
 def make_image_thumbnail(image, thumb):
-    cmd = [
-        "ffmpeg", "-y", "-i", str(image),
-        "-frames:v", "1", "-vf", thumb_filter(), "-q:v", "6", "-update", "1", str(thumb)
-    ]
+    cmd = ["ffmpeg", "-y", "-i", str(image), "-frames:v", "1", "-vf", thumb_filter(), "-q:v", "6", "-update", "1", str(thumb)]
     try:
         subprocess.run(cmd, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
         return thumb.exists()
     except subprocess.CalledProcessError:
-        print(f"WARNING: thumbnail failed for {image.name}; gallery will fall back to original")
+        print(f"WARNING: thumbnail failed for {image.name}; gallery uses original image")
         return False
 
 def make_poster(video, poster):
-    cmd = [
-        "ffmpeg", "-y", "-ss", "0.7", "-i", str(video),
-        "-frames:v", "1", "-vf", thumb_filter(), "-q:v", "6", "-update", "1", str(poster)
-    ]
+    cmd = ["ffmpeg", "-y", "-ss", "0.7", "-i", str(video), "-frames:v", "1", "-vf", thumb_filter(), "-q:v", "6", "-update", "1", str(poster)]
     subprocess.run(cmd, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
 manifest = {k: [] for k in FOLDERS}
@@ -114,23 +108,29 @@ for key, folder in FOLDERS.items():
         safe = pathlib.Path(item["name"]).name.replace("#", "_")
         if ext in VIDEO_EXTS:
             tmp = pathlib.Path("/tmp") / safe
-            download(item["path_lower"], tmp)
             stem = pathlib.Path(safe).stem
             target = out / (stem + "-web.mp4")
             poster = out / (stem + "-poster.jpg")
-            transcode_video(tmp, target)
-            make_poster(target, poster)
             try:
-                tmp.unlink()
-            except FileNotFoundError:
-                pass
-            manifest[key].append(f"vp:{target.as_posix()}|{poster.as_posix()}")
+                download(item["path_lower"], tmp)
+                transcode_video(tmp, target)
+                make_poster(target, poster)
+                manifest[key].append(f"vp:{target.as_posix()}|{poster.as_posix()}")
+            except Exception as e:
+                print(f"WARNING: skipping video {folder}/{safe}: {e}")
+                target.unlink(missing_ok=True)
+                poster.unlink(missing_ok=True)
+            finally:
+                tmp.unlink(missing_ok=True)
         else:
-            target = out / safe
-            download(item["path_lower"], target)
-            thumb = out / (pathlib.Path(safe).stem + "-thumb.jpg")
-            make_image_thumbnail(target, thumb)
-            manifest[key].append(target.as_posix())
+            try:
+                target = out / safe
+                download(item["path_lower"], target)
+                thumb = out / (pathlib.Path(safe).stem + "-thumb.jpg")
+                make_image_thumbnail(target, thumb)
+                manifest[key].append(target.as_posix())
+            except Exception as e:
+                print(f"WARNING: skipping image {folder}/{safe}: {e}")
 
 MANIFEST.write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
 print(json.dumps({k: len(v) for k, v in manifest.items()}))
