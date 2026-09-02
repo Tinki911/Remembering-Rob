@@ -83,14 +83,19 @@ def thumb_filter():
 def make_image_thumbnail(image, thumb):
     cmd = [
         "ffmpeg", "-y", "-i", str(image),
-        "-frames:v", "1", "-vf", thumb_filter(), "-q:v", "6", str(thumb)
+        "-frames:v", "1", "-vf", thumb_filter(), "-q:v", "6", "-update", "1", str(thumb)
     ]
-    subprocess.run(cmd, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    try:
+        subprocess.run(cmd, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        return thumb.exists()
+    except subprocess.CalledProcessError:
+        print(f"WARNING: thumbnail failed for {image.name}; gallery will fall back to original")
+        return False
 
 def make_poster(video, poster):
     cmd = [
         "ffmpeg", "-y", "-ss", "0.7", "-i", str(video),
-        "-frames:v", "1", "-vf", thumb_filter(), "-q:v", "6", str(poster)
+        "-frames:v", "1", "-vf", thumb_filter(), "-q:v", "6", "-update", "1", str(poster)
     ]
     subprocess.run(cmd, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
