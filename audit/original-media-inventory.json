@@ -1,0 +1,364 @@
+{
+  "source_repository": "Tinki911/gkonopkaart",
+  "source_branch": "gh-pages",
+  "source_folder": "rob-map",
+  "source_summary": {
+    "media-slaters.js": {
+      "location_hint": "slaters",
+      "embedded_images": 0,
+      "embedded_videos": 0,
+      "youtube_links": 0,
+      "source_bytes": 10031
+    },
+    "media-colorado.js": {
+      "location_hint": "colorado",
+      "embedded_images": 0,
+      "embedded_videos": 0,
+      "youtube_links": 0,
+      "source_bytes": 2219
+    },
+    "media-emerald.js": {
+      "location_hint": "emerald",
+      "embedded_images": 4,
+      "embedded_videos": 0,
+      "youtube_links": 0,
+      "source_bytes": 9602
+    },
+    "media-ultra-emerald.js": {
+      "location_hint": "emerald",
+      "embedded_images": 3,
+      "embedded_videos": 0,
+      "youtube_links": 0,
+      "source_bytes": 24171
+    },
+    "media-giants.js": {
+      "location_hint": "giants",
+      "embedded_images": 2,
+      "embedded_videos": 1,
+      "youtube_links": 0,
+      "source_bytes": 14758
+    },
+    "media-ultra-giants.js": {
+      "location_hint": "giants",
+      "embedded_images": 1,
+      "embedded_videos": 1,
+      "youtube_links": 0,
+      "source_bytes": 17047
+    },
+    "media-idwal.js": {
+      "location_hint": "idwal",
+      "embedded_images": 0,
+      "embedded_videos": 0,
+      "youtube_links": 2,
+      "source_bytes": 181
+    },
+    "media-glenariffe.js": {
+      "location_hint": "glenariffe",
+      "embedded_images": 1,
+      "embedded_videos": 0,
+      "youtube_links": 0,
+      "source_bytes": 13243
+    },
+    "media/glenariffe-01.js": {
+      "location_hint": "glenariffe",
+      "embedded_images": 1,
+      "embedded_videos": 0,
+      "youtube_links": 0,
+      "source_bytes": 18612
+    },
+    "live.html": {
+      "location_hint": "map-page",
+      "embedded_images": 0,
+      "embedded_videos": 0,
+      "youtube_links": 0,
+      "source_bytes": 8646
+    },
+    "remembering-rob-v13.html": {
+      "location_hint": "map-page",
+      "embedded_images": 0,
+      "embedded_videos": 0,
+      "youtube_links": 1,
+      "source_bytes": 9004
+    },
+    "remembering-rob-v14.html": {
+      "location_hint": "map-page",
+      "embedded_images": 0,
+      "embedded_videos": 0,
+      "youtube_links": 1,
+      "source_bytes": 8052
+    },
+    "share.html": {
+      "location_hint": "map-page",
+      "embedded_images": 0,
+      "embedded_videos": 0,
+      "youtube_links": 0,
+      "source_bytes": 7717
+    }
+  },
+  "location_summary": {
+    "emerald": {
+      "unique_images": 7,
+      "unique_videos": 0,
+      "unique_youtube": 0,
+      "all_occurrences": 7,
+      "bytes_unique": 25020
+    },
+    "giants": {
+      "unique_images": 3,
+      "unique_videos": 2,
+      "unique_youtube": 0,
+      "all_occurrences": 5,
+      "bytes_unique": 19613
+    },
+    "idwal": {
+      "unique_images": 0,
+      "unique_videos": 0,
+      "unique_youtube": 2,
+      "all_occurrences": 2,
+      "bytes_unique": 0
+    },
+    "glenariffe": {
+      "unique_images": 2,
+      "unique_videos": 0,
+      "unique_youtube": 0,
+      "all_occurrences": 2,
+      "bytes_unique": 21261
+    },
+    "map-page": {
+      "unique_images": 0,
+      "unique_videos": 0,
+      "unique_youtube": 1,
+      "all_occurrences": 2,
+      "bytes_unique": 0
+    }
+  },
+  "total_occurrences": 18,
+  "unique_binary_files": 14,
+  "unique_youtube_links": 3,
+  "records": [
+    {
+      "location": "emerald",
+      "kind": "image",
+      "format": "jpeg",
+      "sha256": "5e663b18e73ed4a6bc2d65fc33e64519d633012dacaba431be86a0a1d9728dd1",
+      "bytes": 1911,
+      "source_file": "media-emerald.js",
+      "source_offset": 69,
+      "extracted_path": "audit/original-media/emerald/emerald-image-01.jpg",
+      "is_duplicate": false,
+      "duplicate_of": ""
+    },
+    {
+      "location": "emerald",
+      "kind": "image",
+      "format": "jpeg",
+      "sha256": "1bd3c10752efc86e85e152e308afecbf47812984bb502f8351a09f2012ded181",
+      "bytes": 1774,
+      "source_file": "media-emerald.js",
+      "source_offset": 2643,
+      "extracted_path": "audit/original-media/emerald/emerald-image-02.jpg",
+      "is_duplicate": false,
+      "duplicate_of": ""
+    },
+    {
+      "location": "emerald",
+      "kind": "image",
+      "format": "jpeg",
+      "sha256": "0212fb22dd479d58a772531843e79e22da881d54d74e1e6d182c4050c68c0b03",
+      "bytes": 1622,
+      "source_file": "media-emerald.js",
+      "source_offset": 5037,
+      "extracted_path": "audit/original-media/emerald/emerald-image-03.jpg",
+      "is_duplicate": false,
+      "duplicate_of": ""
+    },
+    {
+      "location": "emerald",
+      "kind": "image",
+      "format": "jpeg",
+      "sha256": "80512c18bced1d8a6315d93dd2a9bc6d3c7f56311f3153fda0db67fba7988861",
+      "bytes": 1759,
+      "source_file": "media-emerald.js",
+      "source_offset": 7227,
+      "extracted_path": "audit/original-media/emerald/emerald-image-04.jpg",
+      "is_duplicate": false,
+      "duplicate_of": ""
+    },
+    {
+      "location": "emerald",
+      "kind": "image",
+      "format": "jpeg",
+      "sha256": "662b0841d4d7e1b9ba08b917c8a2ff6e280716c75d3bb0322f8b5b52f4e26256",
+      "bytes": 5622,
+      "source_file": "media-ultra-emerald.js",
+      "source_offset": 97,
+      "extracted_path": "audit/original-media/emerald/emerald-image-05.jpg",
+      "is_duplicate": false,
+      "duplicate_of": ""
+    },
+    {
+      "location": "emerald",
+      "kind": "image",
+      "format": "jpeg",
+      "sha256": "28162d1e024a785b542aaac02f08ba50721cc2794f676c5f8417c4b79787c046",
+      "bytes": 7751,
+      "source_file": "media-ultra-emerald.js",
+      "source_offset": 7647,
+      "extracted_path": "audit/original-media/emerald/emerald-image-06.jpg",
+      "is_duplicate": false,
+      "duplicate_of": ""
+    },
+    {
+      "location": "emerald",
+      "kind": "image",
+      "format": "jpeg",
+      "sha256": "b8e4568d69c5c585a9767458a2227c7c15084ee6a6ef52f55b6fb07e12dfb142",
+      "bytes": 4581,
+      "source_file": "media-ultra-emerald.js",
+      "source_offset": 18037,
+      "extracted_path": "audit/original-media/emerald/emerald-image-07.jpg",
+      "is_duplicate": false,
+      "duplicate_of": ""
+    },
+    {
+      "location": "giants",
+      "kind": "image",
+      "format": "jpeg",
+      "sha256": "3ed1631f1f533201f3dfb917871e484112589c9ed461da68de8af901833c6962",
+      "bytes": 1664,
+      "source_file": "media-giants.js",
+      "source_offset": 68,
+      "extracted_path": "audit/original-media/giants/giants-image-01.jpg",
+      "is_duplicate": false,
+      "duplicate_of": ""
+    },
+    {
+      "location": "giants",
+      "kind": "image",
+      "format": "jpeg",
+      "sha256": "553ac9fe8a80c86fde59269bd7d2faad72448abbf7b39239b24d18834533f1e5",
+      "bytes": 1148,
+      "source_file": "media-giants.js",
+      "source_offset": 2314,
+      "extracted_path": "audit/original-media/giants/giants-image-02.jpg",
+      "is_duplicate": false,
+      "duplicate_of": ""
+    },
+    {
+      "location": "giants",
+      "kind": "video",
+      "format": "mp4",
+      "sha256": "bd421a4bf50bb951d41e9fd3837e45e9aa861265efb4aa7ed7854f8362cd7b12",
+      "bytes": 8143,
+      "source_file": "media-giants.js",
+      "source_offset": 3872,
+      "extracted_path": "audit/original-media/giants/giants-video-01.mp4",
+      "is_duplicate": false,
+      "duplicate_of": ""
+    },
+    {
+      "location": "giants",
+      "kind": "image",
+      "format": "jpeg",
+      "sha256": "8e4622cb78a6341231a15e17832f18dc70164682f726abc810b27ef3a1967766",
+      "bytes": 3108,
+      "source_file": "media-ultra-giants.js",
+      "source_offset": 95,
+      "extracted_path": "audit/original-media/giants/giants-image-03.jpg",
+      "is_duplicate": false,
+      "duplicate_of": ""
+    },
+    {
+      "location": "giants",
+      "kind": "video",
+      "format": "mp4",
+      "sha256": "244ef2205216ea1a2f39280b9dc0e77322cacce21511c7d9437456ab0b562c5c",
+      "bytes": 5550,
+      "source_file": "media-ultra-giants.js",
+      "source_offset": 9622,
+      "extracted_path": "audit/original-media/giants/giants-video-02.mp4",
+      "is_duplicate": false,
+      "duplicate_of": ""
+    },
+    {
+      "location": "idwal",
+      "kind": "youtube",
+      "format": "url",
+      "sha256": "a25a077ea3871eb2601e9ac666a056a83defce37c058538407ecbfae8c7b49f6",
+      "bytes": 0,
+      "source_file": "media-idwal.js",
+      "source_offset": 67,
+      "extracted_path": "",
+      "is_duplicate": false,
+      "duplicate_of": "",
+      "url": "https://youtube.com/shorts/4RnIPlU_Rew?is=mT9hHde0V4Q7F-Ve",
+      "thumbnail": "https://i.ytimg.com/vi/4RnIPlU_Rew/hqdefault.jpg"
+    },
+    {
+      "location": "idwal",
+      "kind": "youtube",
+      "format": "url",
+      "sha256": "bcbaa0a345f974314a354b66878971b8cdbf182aaa272d85ee89b473b817a2a7",
+      "bytes": 0,
+      "source_file": "media-idwal.js",
+      "source_offset": 70,
+      "extracted_path": "",
+      "is_duplicate": false,
+      "duplicate_of": "",
+      "url": "https://youtube.com/shorts/4RnIPlU_Rew?is=mT9hHde0V4Q7F-Ve|https://i.ytimg.com/vi/4RnIPlU_Rew/hqdefault.jpg",
+      "thumbnail": ""
+    },
+    {
+      "location": "glenariffe",
+      "kind": "image",
+      "format": "jpeg",
+      "sha256": "46ce029ffb6fd1a937d93cc3e9f61df8c591e4b7db333080079fb69f41384faf",
+      "bytes": 7428,
+      "source_file": "media-glenariffe.js",
+      "source_offset": 71,
+      "extracted_path": "audit/original-media/glenariffe/glenariffe-image-01.jpg",
+      "is_duplicate": false,
+      "duplicate_of": ""
+    },
+    {
+      "location": "glenariffe",
+      "kind": "image",
+      "format": "jpeg",
+      "sha256": "8456e6b73f36359b0e726395ad7109d0b111329ed499baeaf68b4c857eccae47",
+      "bytes": 13833,
+      "source_file": "media/glenariffe-01.js",
+      "source_offset": 141,
+      "extracted_path": "audit/original-media/glenariffe/glenariffe-image-02.jpg",
+      "is_duplicate": false,
+      "duplicate_of": ""
+    },
+    {
+      "location": "map-page",
+      "kind": "youtube",
+      "format": "url",
+      "sha256": "a25a077ea3871eb2601e9ac666a056a83defce37c058538407ecbfae8c7b49f6",
+      "bytes": 0,
+      "source_file": "remembering-rob-v13.html",
+      "source_offset": 5017,
+      "extracted_path": "",
+      "is_duplicate": true,
+      "duplicate_of": "https://youtube.com/shorts/4RnIPlU_Rew?is=mT9hHde0V4Q7F-Ve",
+      "url": "https://youtube.com/shorts/4RnIPlU_Rew?is=mT9hHde0V4Q7F-Ve",
+      "thumbnail": ""
+    },
+    {
+      "location": "map-page",
+      "kind": "youtube",
+      "format": "url",
+      "sha256": "807b5a0779d0faafa2083d8a9d84cd7c56f91e0f958dd1c3d3900edefc51331d",
+      "bytes": 0,
+      "source_file": "remembering-rob-v14.html",
+      "source_offset": 7328,
+      "extracted_path": "",
+      "is_duplicate": false,
+      "duplicate_of": "",
+      "url": "https://www.youtube.com/embed/4RnIPlU_Rew?autoplay=1",
+      "thumbnail": ""
+    }
+  ]
+}
