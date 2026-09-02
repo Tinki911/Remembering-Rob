@@ -5,7 +5,7 @@ on:
   push:
     paths:
       - '.github/workflows/audit-original-media.yml'
-      - 'scripts/audit_history.py'
+      - 'scripts/audit_history_node.js'
 
 permissions:
   contents: write
@@ -22,8 +22,8 @@ jobs:
           mkdir -p audit/original-media
           git clone --quiet --mirror https://github.com/Tinki911/gkonopkaart.git audit/_repo.git
 
-      - name: Extract every historical memorial image/video and build inventory
-        run: python scripts/audit_history.py audit/_repo.git
+      - name: Execute historical media scripts in sandbox and build inventory
+        run: node scripts/audit_history_node.js audit/_repo.git
 
       - name: Remove temporary mirror
         run: rm -rf audit/_repo.git
@@ -36,6 +36,6 @@ jobs:
           if git diff --cached --quiet; then
             echo 'No audit changes'
           else
-            git commit -m 'Rebuild complete original memorial media inventory'
+            git commit -m 'Rebuild complete original memorial media inventory with sandbox extractor'
             git push
           fi
