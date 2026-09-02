@@ -1,40 +1,88 @@
 {
-  "slaters": [],
-  "colorado": [
-    "uploads/colorado/IMG-20260717-WA0123.jpg",
-    "uploads/colorado/IMG-20260717-WA0147.jpg",
-    "uploads/colorado/IMG-20260717-WA0159.jpg",
-    "uploads/colorado/IMG-20260717-WA0155.jpg",
-    "uploads/colorado/20260717_113031.jpg",
-    "uploads/colorado/20260717_124540.jpg"
+  "slaters": [
+    "uploads/slaters/20251026_125612.jpg",
+    "uploads/slaters/20251026_143618.jpg",
+    "uploads/slaters/20251027_075121.jpg",
+    "uploads/slaters/20251027_100830.jpg",
+    "uploads/slaters/20251027_101013.jpg",
+    "uploads/slaters/20251027_101356.jpg",
+    "uploads/slaters/20251027_103421.jpg",
+    "uploads/slaters/20251027_103756.jpg",
+    "vp:uploads/slaters/20251027_104014-web.mp4|uploads/slaters/20251027_104014-poster.jpg",
+    "uploads/slaters/20251027_104456.jpg",
+    "uploads/slaters/20251027_104517.jpg",
+    "uploads/slaters/20251027_104610.jpg",
+    "uploads/slaters/20251027_105459.jpg",
+    "uploads/slaters/20251027_105823.jpg",
+    "uploads/slaters/20251027_110037.jpg",
+    "uploads/slaters/20251027_114121.jpg",
+    "uploads/slaters/20251027_115035.jpg",
+    "uploads/slaters/20251027_115549.jpg",
+    "uploads/slaters/20251027_120951.jpg",
+    "uploads/slaters/20251027_121406.jpg",
+    "uploads/slaters/20251027_122141.jpg",
+    "uploads/slaters/20251027_122720.jpg",
+    "uploads/slaters/20251027_122833.jpg",
+    "uploads/slaters/20251028_134115.jpg",
+    "uploads/slaters/20251028_135030.jpg",
+    "uploads/slaters/20251028_135826.jpg",
+    "uploads/slaters/20251028_141200.jpg",
+    "uploads/slaters/20251028_142524.jpg",
+    "uploads/slaters/20251028_145529.jpg",
+    "uploads/slaters/20251028_145735.jpg",
+    "uploads/slaters/20251028_153101.jpg",
+    "uploads/slaters/20251028_175831.jpg",
+    "uploads/slaters/20251028_193128.jpg",
+    "uploads/slaters/20251029_101405.jpg",
+    "uploads/slaters/20251029_101920.jpg",
+    "uploads/slaters/20251029_102727.jpg",
+    "uploads/slaters/20251029_103049.jpg",
+    "uploads/slaters/20251029_103512.jpg",
+    "uploads/slaters/20251029_105517.jpg",
+    "uploads/slaters/20251029_110324.jpg",
+    "uploads/slaters/20251029_122149.jpg"
   ],
-  "emerald": [],
+  "colorado": [
+    "uploads/colorado/20260717_113031.jpg",
+    "uploads/colorado/IMG-20260717-WA0123.jpg",
+    "uploads/colorado/IMG-20260717-WA0159.jpg"
+  ],
+  "emerald": [
+    "uploads/emerald/20260717_124540.jpg",
+    "uploads/emerald/IMG-20260717-WA0147.jpg",
+    "uploads/emerald/IMG-20260717-WA0155.jpg"
+  ],
   "giants": [
-    "uploads/giants/IMG_20260828_222904_666.jpg",
-    "vp:uploads/giants/20260828_205534-web.mp4|uploads/giants/20260828_205534-poster.jpg",
     "uploads/giants/20260828_205401.jpg",
+    "vp:uploads/giants/20260828_205534-web.mp4|uploads/giants/20260828_205534-poster.jpg",
     "uploads/giants/20260829_081422.jpg",
     "uploads/giants/20260829_082338.jpg",
+    "uploads/giants/20260829_082908.jpg",
     "uploads/giants/20260829_082916.jpg",
     "uploads/giants/20260829_083556.jpg",
     "uploads/giants/20260829_085320.jpg",
-    "uploads/giants/20260829_082908.jpg",
     "uploads/giants/20260829_090601.jpg",
     "uploads/giants/20260829_093101.jpg",
     "uploads/giants/20260829_094652.jpg",
-    "uploads/giants/20260829_095031.jpg"
+    "uploads/giants/20260829_095031.jpg",
+    "uploads/giants/IMG_20260828_222904_666.jpg"
   ],
   "idwal": [
-    "uploads/idwal/OMK - 20260831_104210.jpg",
-    "uploads/idwal/OMK - 20260831_111520.jpg",
-    "vp:uploads/idwal/20260831_104304-web.mp4|uploads/idwal/20260831_104304-poster.jpg",
     "uploads/idwal/20260831_101109.jpg",
     "uploads/idwal/20260831_101458.jpg",
     "uploads/idwal/20260831_102326.jpg",
     "uploads/idwal/20260831_104025.jpg",
+    "vp:uploads/idwal/20260831_104304-web.mp4|uploads/idwal/20260831_104304-poster.jpg",
     "uploads/idwal/20260831_105907(0).jpg",
     "uploads/idwal/20260831_110907.jpg",
-    "uploads/idwal/20260831_113148.jpg"
+    "uploads/idwal/20260831_113148.jpg",
+    "uploads/idwal/OMK - 20260831_104210.jpg",
+    "uploads/idwal/OMK - 20260831_111520.jpg"
   ],
-  "glenariffe": []
+  "glenariffe": [
+    "uploads/glenariffe/20260828_135132.jpg",
+    "vp:uploads/glenariffe/20260828_140054-web.mp4|uploads/glenariffe/20260828_140054-poster.jpg",
+    "uploads/glenariffe/20260828_142347.jpg",
+    "uploads/glenariffe/20260828_150628.jpg"
+  ]
 }
