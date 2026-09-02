@@ -1,0 +1,184 @@
+name: Audit original memorial media
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/audit-original-media.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download old map media sources
+        run: |
+          rm -rf audit/_old audit/original-media
+          mkdir -p audit/_old/media audit/original-media
+          base='https://raw.githubusercontent.com/Tinki911/gkonopkaart/gh-pages/rob-map'
+          files='media-slaters.js media-colorado.js media-emerald.js media-ultra-emerald.js media-giants.js media-ultra-giants.js media-idwal.js media-glenariffe.js media/glenariffe-01.js live.html remembering-rob-v13.html remembering-rob-v14.html share.html'
+          for f in $files; do
+            mkdir -p "audit/_old/$(dirname "$f")"
+            curl -fsSL "$base/$f" -o "audit/_old/$f"
+          done
+
+      - name: Extract, deduplicate and inventory media
+        shell: python
+        run: |
+          import base64, csv, hashlib, json, mimetypes, pathlib, re
+
+          root = pathlib.Path('audit/_old')
+          out = pathlib.Path('audit/original-media')
+          out.mkdir(parents=True, exist_ok=True)
+
+          source_files = [
+              'media-slaters.js','media-colorado.js','media-emerald.js','media-ultra-emerald.js',
+              'media-giants.js','media-ultra-giants.js','media-idwal.js','media-glenariffe.js',
+              'media/glenariffe-01.js','live.html','remembering-rob-v13.html','remembering-rob-v14.html','share.html'
+          ]
+          location_hint = {
+              'media-slaters.js':'slaters',
+              'media-colorado.js':'colorado',
+              'media-emerald.js':'emerald',
+              'media-ultra-emerald.js':'emerald',
+              'media-giants.js':'giants',
+              'media-ultra-giants.js':'giants',
+              'media-idwal.js':'idwal',
+              'media-glenariffe.js':'glenariffe',
+              'media/glenariffe-01.js':'glenariffe',
+          }
+
+          # Capture all embedded data URIs and yt: links from every historical source.
+          data_pat = re.compile(r"data:(image|video)/([A-Za-z0-9.+-]+);base64,([A-Za-z0-9+/=]+)")
+          yt_pat = re.compile(r"yt:(https?://[^'\"\s|]+)(?:\|([^'\"\s]+))?")
+          youtube_pat = re.compile(r"https?://(?:www\.)?(?:youtube\.com|youtu\.be)/[^'\"\s<]+")
+
+          records=[]
+          seen={}
+          source_summary={}
+
+          def ext_for(kind, subtype):
+              st=subtype.lower()
+              if kind=='image':
+                  return {'jpeg':'jpg','jpg':'jpg','png':'png','webp':'webp','gif':'gif','heic':'heic'}.get(st, st.replace('svg+xml','svg'))
+              return {'mp4':'mp4','quicktime':'mov','webm':'webm','x-m4v':'m4v'}.get(st, st)
+
+          for rel in source_files:
+              p=root/rel
+              text=p.read_text(errors='replace')
+              loc=location_hint.get(rel,'map-page')
+              ds=[]
+              for m in data_pat.finditer(text):
+                  kind, subtype, b64=m.groups()
+                  try:
+                      blob=base64.b64decode(b64, validate=False)
+                  except Exception:
+                      continue
+                  sha=hashlib.sha256(blob).hexdigest()
+                  ext=ext_for(kind, subtype)
+                  if sha not in seen:
+                      folder=out/loc
+                      folder.mkdir(parents=True, exist_ok=True)
+                      n=sum(1 for r in records if r.get('location')==loc and r.get('kind')==kind and r.get('is_duplicate') is False)+1
+                      fname=f'{loc}-{kind}-{n:02d}.{ext}'
+                      path=folder/fname
+                      path.write_bytes(blob)
+                      seen[sha]=str(path)
+                      dup=False
+                  else:
+                      path=pathlib.Path(seen[sha])
+                      dup=True
+                  rec={
+                      'location':loc,'kind':kind,'format':subtype,'sha256':sha,'bytes':len(blob),
+                      'source_file':rel,'source_offset':m.start(),'extracted_path':str(path),
+                      'is_duplicate':dup,'duplicate_of':seen[sha] if dup else ''
+                  }
+                  records.append(rec); ds.append(rec)
+
+              yts=[]
+              for m in yt_pat.finditer(text):
+                  url,thumb=m.groups()
+                  key='yt:'+url
+                  rec={'location':loc,'kind':'youtube','format':'url','sha256':hashlib.sha256(key.encode()).hexdigest(),
+                       'bytes':0,'source_file':rel,'source_offset':m.start(),'extracted_path':'',
+                       'is_duplicate':key in seen,'duplicate_of':seen.get(key,''),'url':url,'thumbnail':thumb or ''}
+                  if key not in seen: seen[key]=url
+                  records.append(rec); yts.append(rec)
+              for m in youtube_pat.finditer(text):
+                  url=m.group(0).rstrip(');,')
+                  key='yt:'+url
+                  # Skip if already captured as yt: form.
+                  if any(r.get('url')==url and r.get('source_file')==rel for r in records):
+                      continue
+                  rec={'location':loc,'kind':'youtube','format':'url','sha256':hashlib.sha256(key.encode()).hexdigest(),
+                       'bytes':0,'source_file':rel,'source_offset':m.start(),'extracted_path':'',
+                       'is_duplicate':key in seen,'duplicate_of':seen.get(key,''),'url':url,'thumbnail':''}
+                  if key not in seen: seen[key]=url
+                  records.append(rec); yts.append(rec)
+
+              source_summary[rel]={
+                  'location_hint':loc,
+                  'embedded_images':sum(r['kind']=='image' for r in ds),
+                  'embedded_videos':sum(r['kind']=='video' for r in ds),
+                  'youtube_links':len(yts),
+                  'source_bytes':p.stat().st_size,
+              }
+
+          # Deduplicated location summary. A unique binary is assigned to the location of its first source occurrence.
+          locs={}
+          for r in records:
+              loc=r['location']
+              s=locs.setdefault(loc,{'unique_images':0,'unique_videos':0,'unique_youtube':0,'all_occurrences':0,'bytes_unique':0})
+              s['all_occurrences']+=1
+              if not r['is_duplicate']:
+                  if r['kind']=='image': s['unique_images']+=1
+                  elif r['kind']=='video': s['unique_videos']+=1
+                  elif r['kind']=='youtube': s['unique_youtube']+=1
+                  s['bytes_unique']+=r.get('bytes',0)
+
+          manifest={
+              'source_repository':'Tinki911/gkonopkaart',
+              'source_branch':'gh-pages',
+              'source_folder':'rob-map',
+              'source_summary':source_summary,
+              'location_summary':locs,
+              'total_occurrences':len(records),
+              'unique_binary_files':sum(1 for r in records if not r['is_duplicate'] and r['kind'] in ('image','video')),
+              'unique_youtube_links':sum(1 for r in records if not r['is_duplicate'] and r['kind']=='youtube'),
+              'records':records,
+          }
+          pathlib.Path('audit/original-media-inventory.json').write_text(json.dumps(manifest,indent=2),encoding='utf-8')
+          with open('audit/original-media-inventory.csv','w',newline='',encoding='utf-8') as f:
+              fields=['location','kind','format','bytes','sha256','source_file','source_offset','extracted_path','is_duplicate','duplicate_of','url','thumbnail']
+              w=csv.DictWriter(f,fieldnames=fields); w.writeheader()
+              for r in records: w.writerow({k:r.get(k,'') for k in fields})
+
+          lines=['# Original memorial media audit','',
+                 'This is an audit of the historical `gkonopkaart/rob-map` source only. It does not include new Dropbox uploads.','',
+                 '| Location | Unique photos | Unique embedded videos | Unique YouTube links | All source occurrences |',
+                 '|---|---:|---:|---:|---:|']
+          for loc in sorted(locs):
+              s=locs[loc]
+              lines.append(f"| {loc} | {s['unique_images']} | {s['unique_videos']} | {s['unique_youtube']} | {s['all_occurrences']} |")
+          lines += ['',f"Unique extracted image/video files: **{manifest['unique_binary_files']}**",f"Unique YouTube links: **{manifest['unique_youtube_links']}**",'',
+                    'See `original-media-inventory.csv` and `original-media-inventory.json` for every occurrence and its SHA-256 hash.']
+          pathlib.Path('audit/README.md').write_text('\n'.join(lines)+'\n',encoding='utf-8')
+
+      - name: Remove downloaded source copies
+        run: rm -rf audit/_old
+
+      - name: Commit audit only
+        run: |
+          git config user.name 'Remembering Rob Media Audit'
+          git config user.email 'actions@users.noreply.github.com'
+          git add audit
+          if git diff --cached --quiet; then
+            echo 'No audit changes'
+          else
+            git commit -m 'Extract and inventory original memorial media'
+            git push
+          fi
