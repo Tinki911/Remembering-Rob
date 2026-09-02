@@ -66,12 +66,7 @@ def download(path, target):
         shutil.copyfileobj(r, f)
 
 def transcode_video(src, dest):
-    attempts = [
-        (28, 720),
-        (31, 720),
-        (33, 540),
-        (35, 480),
-    ]
+    attempts = [(28, 720), (31, 720), (33, 540), (35, 480)]
     for crf, height in attempts:
         if dest.exists():
             dest.unlink()
@@ -86,6 +81,13 @@ def transcode_video(src, dest):
         if dest.stat().st_size <= MAX_WEB_VIDEO:
             return
     raise RuntimeError(f"Could not compress video below {MAX_WEB_VIDEO // (1024*1024)} MB: {src.name}")
+
+def make_poster(video, poster):
+    cmd = [
+        "ffmpeg", "-y", "-ss", "0.7", "-i", str(video),
+        "-frames:v", "1", "-vf", "scale=-2:'min(720,ih)'", "-q:v", "3", str(poster)
+    ]
+    subprocess.run(cmd, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
 manifest = {k: [] for k in FOLDERS}
 DEST.mkdir(exist_ok=True)
@@ -103,16 +105,20 @@ for key, folder in FOLDERS.items():
         if ext in VIDEO_EXTS:
             tmp = pathlib.Path("/tmp") / safe
             download(item["path_lower"], tmp)
-            target = out / (pathlib.Path(safe).stem + "-web.mp4")
+            stem = pathlib.Path(safe).stem
+            target = out / (stem + "-web.mp4")
+            poster = out / (stem + "-poster.jpg")
             transcode_video(tmp, target)
+            make_poster(target, poster)
             try:
                 tmp.unlink()
             except FileNotFoundError:
                 pass
+            manifest[key].append(f"vp:{target.as_posix()}|{poster.as_posix()}")
         else:
             target = out / safe
             download(item["path_lower"], target)
-        manifest[key].append(target.as_posix())
+            manifest[key].append(target.as_posix())
 
 for key, items in EXTRA_MEDIA.items():
     manifest.setdefault(key, []).extend(items)
