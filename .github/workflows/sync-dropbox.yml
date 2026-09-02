@@ -12,11 +12,17 @@ on:
 permissions:
   contents: write
 
+concurrency:
+  group: remember-rob-dropbox-sync
+  cancel-in-progress: false
+
 jobs:
   sync:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
@@ -28,7 +34,7 @@ jobs:
         env:
           DROPBOX_ACCESS_TOKEN: ${{ secrets.DROPBOX_ACCESS_TOKEN }}
         run: python scripts/sync_dropbox.py
-      - name: Commit gallery changes
+      - name: Commit gallery changes safely
         run: |
           git config user.name "Remembering Rob Sync"
           git config user.email "actions@users.noreply.github.com"
@@ -37,5 +43,6 @@ jobs:
             echo "No gallery changes"
           else
             git commit -m "Sync Dropbox gallery uploads"
-            git push
+            git pull --rebase origin main
+            git push origin main
           fi
