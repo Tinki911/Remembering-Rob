@@ -23,7 +23,7 @@ IMAGE_EXTS = {".jpg", ".jpeg", ".png", ".webp", ".gif"}
 VIDEO_EXTS = {".mp4", ".mov", ".m4v", ".webm"}
 ALLOWED = IMAGE_EXTS | VIDEO_EXTS
 MAX_WEB_VIDEO = 45 * 1024 * 1024
-THUMB_SIZE = 200
+THUMB_SIZE = 350
 
 def open_dropbox(req):
     try:
@@ -82,7 +82,7 @@ def thumb_filter():
     return f"scale={THUMB_SIZE}:{THUMB_SIZE}:force_original_aspect_ratio=increase,crop={THUMB_SIZE}:{THUMB_SIZE}"
 
 def make_image_thumbnail(image, thumb):
-    cmd = ["ffmpeg", "-y", "-i", str(image), "-frames:v", "1", "-vf", thumb_filter(), "-q:v", "6", "-update", "1", str(thumb)]
+    cmd = ["ffmpeg", "-y", "-i", str(image), "-frames:v", "1", "-vf", thumb_filter(), "-q:v", "4", "-update", "1", str(thumb)]
     try:
         subprocess.run(cmd, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
         return thumb.exists()
@@ -91,7 +91,7 @@ def make_image_thumbnail(image, thumb):
         return False
 
 def make_poster(video, poster):
-    cmd = ["ffmpeg", "-y", "-ss", "0.7", "-i", str(video), "-frames:v", "1", "-vf", thumb_filter(), "-q:v", "6", "-update", "1", str(poster)]
+    cmd = ["ffmpeg", "-y", "-ss", "0.7", "-i", str(video), "-frames:v", "1", "-vf", thumb_filter(), "-q:v", "4", "-update", "1", str(poster)]
     subprocess.run(cmd, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
 manifest = {k: [] for k in FOLDERS}
