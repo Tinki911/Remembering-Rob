@@ -1,0 +1,33 @@
+name: Migrate historical memorial media
+
+on:
+  push:
+    paths:
+      - '.github/workflows/migrate-media.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  migrate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Copy historical media into this standalone repository
+        run: |
+          files="media-slaters.js media-ultra-emerald.js media-ultra-giants.js media-glenariffe.js media-idwal.js media-colorado.js"
+          for f in $files; do
+            curl -fsSL "https://raw.githubusercontent.com/Tinki911/gkonopkaart/gh-pages/rob-map/$f" -o "$f"
+          done
+      - name: Commit migrated media
+        run: |
+          git config user.name "Remembering Rob Migration"
+          git config user.email "actions@users.noreply.github.com"
+          git add media-*.js
+          if git diff --cached --quiet; then
+            echo "Historical media already migrated"
+          else
+            git commit -m "Migrate memorial media from old art repository"
+            git push
+          fi
