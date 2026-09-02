@@ -1,11 +1,40 @@
 {
   "slaters": [],
-  "colorado": [],
+  "colorado": [
+    "uploads/colorado/IMG-20260717-WA0123.jpg",
+    "uploads/colorado/IMG-20260717-WA0147.jpg",
+    "uploads/colorado/IMG-20260717-WA0159.jpg",
+    "uploads/colorado/IMG-20260717-WA0155.jpg",
+    "uploads/colorado/20260717_113031.jpg",
+    "uploads/colorado/20260717_124540.jpg"
+  ],
   "emerald": [],
-  "giants": [],
+  "giants": [
+    "uploads/giants/IMG_20260828_222904_666.jpg",
+    "uploads/giants/20260828_205534-web.mp4",
+    "uploads/giants/20260828_205401.jpg",
+    "uploads/giants/20260829_081422.jpg",
+    "uploads/giants/20260829_082338.jpg",
+    "uploads/giants/20260829_082916.jpg",
+    "uploads/giants/20260829_083556.jpg",
+    "uploads/giants/20260829_085320.jpg",
+    "uploads/giants/20260829_082908.jpg",
+    "uploads/giants/20260829_090601.jpg",
+    "uploads/giants/20260829_093101.jpg",
+    "uploads/giants/20260829_094652.jpg",
+    "uploads/giants/20260829_095031.jpg"
+  ],
   "idwal": [
     "uploads/idwal/OMK - 20260831_104210.jpg",
-    "uploads/idwal/OMK - 20260831_111520.jpg"
+    "uploads/idwal/OMK - 20260831_111520.jpg",
+    "uploads/idwal/20260831_104304-web.mp4",
+    "uploads/idwal/20260831_101109.jpg",
+    "uploads/idwal/20260831_101458.jpg",
+    "uploads/idwal/20260831_102326.jpg",
+    "uploads/idwal/20260831_104025.jpg",
+    "uploads/idwal/20260831_105907(0).jpg",
+    "uploads/idwal/20260831_110907.jpg",
+    "uploads/idwal/20260831_113148.jpg"
   ],
   "glenariffe": []
 }
