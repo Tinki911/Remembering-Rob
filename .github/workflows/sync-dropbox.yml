@@ -1,0 +1,33 @@
+name: Sync Dropbox galleries
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '*/15 * * * *'
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Sync Dropbox uploads
+        env:
+          DROPBOX_ACCESS_TOKEN: ${{ secrets.DROPBOX_ACCESS_TOKEN }}
+        run: python scripts/sync_dropbox.py
+      - name: Commit gallery changes
+        run: |
+          git config user.name "Remembering Rob Sync"
+          git config user.email "actions@users.noreply.github.com"
+          git add uploads uploads.json
+          if git diff --cached --quiet; then
+            echo "No gallery changes"
+          else
+            git commit -m "Sync Dropbox gallery uploads"
+            git push
+          fi
