@@ -23,6 +23,7 @@ IMAGE_EXTS = {".jpg", ".jpeg", ".png", ".webp", ".gif"}
 VIDEO_EXTS = {".mp4", ".mov", ".m4v", ".webm"}
 ALLOWED = IMAGE_EXTS | VIDEO_EXTS
 MAX_WEB_VIDEO = 45 * 1024 * 1024
+THUMB_SIZE = 420
 
 def open_dropbox(req):
     try:
@@ -76,10 +77,20 @@ def transcode_video(src, dest):
             return
     raise RuntimeError(f"Could not compress video below {MAX_WEB_VIDEO // (1024*1024)} MB: {src.name}")
 
+def thumb_filter():
+    return f"scale={THUMB_SIZE}:{THUMB_SIZE}:force_original_aspect_ratio=increase,crop={THUMB_SIZE}:{THUMB_SIZE}"
+
+def make_image_thumbnail(image, thumb):
+    cmd = [
+        "ffmpeg", "-y", "-i", str(image),
+        "-frames:v", "1", "-vf", thumb_filter(), "-q:v", "6", str(thumb)
+    ]
+    subprocess.run(cmd, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+
 def make_poster(video, poster):
     cmd = [
         "ffmpeg", "-y", "-ss", "0.7", "-i", str(video),
-        "-frames:v", "1", "-vf", "scale=-2:'min(720,ih)'", "-q:v", "3", str(poster)
+        "-frames:v", "1", "-vf", thumb_filter(), "-q:v", "6", str(poster)
     ]
     subprocess.run(cmd, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
@@ -112,6 +123,8 @@ for key, folder in FOLDERS.items():
         else:
             target = out / safe
             download(item["path_lower"], target)
+            thumb = out / (pathlib.Path(safe).stem + "-thumb.jpg")
+            make_image_thumbnail(target, thumb)
             manifest[key].append(target.as_posix())
 
 MANIFEST.write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
