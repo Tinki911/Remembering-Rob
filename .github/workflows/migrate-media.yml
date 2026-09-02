@@ -1,4 +1,4 @@
-name: Migrate historical memorial media
+name: Repair historical memorial media
 
 on:
   push:
@@ -10,24 +10,36 @@ permissions:
   contents: write
 
 jobs:
-  migrate:
+  repair:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Copy historical media into this standalone repository
+      - name: Copy the exact historical media files used by the original live map
         run: |
-          files="media-slaters.js media-ultra-emerald.js media-ultra-giants.js media-glenariffe.js media-idwal.js media-colorado.js"
+          files="media-slaters.js media-colorado.js media-emerald.js media-giants.js media-idwal.js media-glenariffe.js"
           for f in $files; do
             curl -fsSL "https://raw.githubusercontent.com/Tinki911/gkonopkaart/gh-pages/rob-map/$f" -o "$f"
           done
-      - name: Commit migrated media
+      - name: Rewire the standalone page to local historical media
         run: |
-          git config user.name "Remembering Rob Migration"
+          python - <<'PY'
+          from pathlib import Path
+          p = Path('index.html')
+          s = p.read_text(encoding='utf-8')
+          start = s.index('<script>window.ROB_MEDIA={};</script>')
+          end = s.index('<script>\nconst uploadLinks=', start)
+          block = '''<script>window.ROB_MEDIA={};</script>\n<script src="media-slaters.js?v=local2"></script>\n<script src="media-colorado.js?v=local2"></script>\n<script src="media-emerald.js?v=local2"></script>\n<script src="media-giants.js?v=local2"></script>\n<script src="media-idwal.js?v=local2"></script>\n<script src="media-glenariffe.js?v=local2"></script>\n'''
+          s = s[:start] + block + s[end:]
+          p.write_text(s, encoding='utf-8')
+          PY
+      - name: Commit repaired historical media wiring
+        run: |
+          git config user.name "Remembering Rob Repair"
           git config user.email "actions@users.noreply.github.com"
-          git add media-*.js
+          git add index.html media-slaters.js media-colorado.js media-emerald.js media-giants.js media-idwal.js media-glenariffe.js
           if git diff --cached --quiet; then
-            echo "Historical media already migrated"
+            echo "Historical media wiring already repaired"
           else
-            git commit -m "Migrate memorial media from old art repository"
+            git commit -m "Repair historical photo and video galleries"
             git push
           fi
