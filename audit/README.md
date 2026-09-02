@@ -1,16 +1,21 @@
 # Original memorial media audit
 
-This is an audit of the historical `gkonopkaart/rob-map` source only. It does not include new Dropbox uploads.
+Scope: **entire Git history** of `Tinki911/gkonopkaart`, restricted to `rob-map/` JavaScript and HTML files.
 
-| Location | Unique photos | Unique embedded videos | Unique YouTube links | All source occurrences |
-|---|---:|---:|---:|---:|
-| emerald | 7 | 0 | 0 | 7 |
-| giants | 3 | 2 | 0 | 5 |
-| glenariffe | 2 | 0 | 0 | 2 |
-| idwal | 0 | 0 | 2 | 2 |
-| map-page | 0 | 0 | 1 | 2 |
+This audit is independent of the live Remembering Rob page and does **not** include new Dropbox uploads.
 
-Unique extracted image/video files: **14**
-Unique YouTube links: **3**
+| Location | Unique photos | Unique embedded videos | Unique YouTube links |
+|---|---:|---:|---:|
+| emerald | 7 | 0 | 0 |
+| giants | 3 | 2 | 0 |
+| glenariffe | 4 | 0 | 0 |
+| idwal | 0 | 1 | 2 |
+| map-page | 0 | 0 | 1 |
 
-See `original-media-inventory.csv` and `original-media-inventory.json` for every occurrence and its SHA-256 hash.
+Commits scanned: **47**
+Unique historical source-file versions scanned: **44**
+Unique extracted image/video binaries: **17**
+Unique YouTube links found: **3**
+
+Every unique embedded image/video has been decoded into `audit/original-media/<location>/`.
+Every occurrence, duplicate, source path, source commit and SHA-256 hash is recorded in the CSV/JSON inventory.
