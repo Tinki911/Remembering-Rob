@@ -23,16 +23,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Use resilient basemap
-        run: |
-          python - <<'PY'
-          from pathlib import Path
-          p = Path('index.html')
-          s = p.read_text()
-          s = s.replace("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png")
-          s = s.replace("attribution:'&copy; OpenStreetMap contributors'", "attribution:'&copy; OpenStreetMap contributors &copy; CARTO'")
-          p.write_text(s)
-          PY
       - name: Configure Pages
         uses: actions/configure-pages@v5
         with:
