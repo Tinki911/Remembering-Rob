@@ -2,6 +2,10 @@ name: Sync Dropbox galleries
 
 on:
   workflow_dispatch:
+  push:
+    paths:
+      - 'scripts/sync_dropbox.py'
+      - '.github/workflows/sync-dropbox.yml'
   schedule:
     - cron: '*/15 * * * *'
 
