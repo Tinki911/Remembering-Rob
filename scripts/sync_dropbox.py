@@ -1,6 +1,11 @@
-import json, os, pathlib, shutil, urllib.request
+import json, os, pathlib, shutil, urllib.request, urllib.error
 
-TOKEN = os.environ["DROPBOX_ACCESS_TOKEN"]
+TOKEN = os.environ["DROPBOX_ACCESS_TOKEN"].strip()
+if TOKEN.lower().startswith("bearer "):
+    TOKEN = TOKEN[7:].strip()
+if not TOKEN:
+    raise RuntimeError("DROPBOX_ACCESS_TOKEN is empty")
+
 ROOT = "/Remembering Rob/Friends Uploads"
 DEST = pathlib.Path("uploads")
 MANIFEST = pathlib.Path("uploads.json")
@@ -16,13 +21,23 @@ FOLDERS = {
 
 ALLOWED = {".jpg", ".jpeg", ".png", ".webp", ".gif", ".mp4", ".mov", ".m4v", ".webm"}
 
+def open_dropbox(req):
+    try:
+        return urllib.request.urlopen(req)
+    except urllib.error.HTTPError as e:
+        try:
+            body = e.read().decode("utf-8", "replace")
+        except Exception:
+            body = "<unable to read Dropbox error body>"
+        raise RuntimeError(f"Dropbox API error {e.code}: {body}") from e
+
 def api(endpoint, payload):
     req = urllib.request.Request(
         "https://api.dropboxapi.com/2/" + endpoint,
         data=json.dumps(payload).encode(),
         headers={"Authorization": f"Bearer {TOKEN}", "Content-Type": "application/json"},
     )
-    with urllib.request.urlopen(req) as r:
+    with open_dropbox(req) as r:
         return json.load(r)
 
 def list_files(path):
@@ -38,7 +53,7 @@ def download(path, target):
         "https://content.dropboxapi.com/2/files/download",
         headers={"Authorization": f"Bearer {TOKEN}", "Dropbox-API-Arg": json.dumps({"path": path})},
     )
-    with urllib.request.urlopen(req) as r, open(target, "wb") as f:
+    with open_dropbox(req) as r, open(target, "wb") as f:
         shutil.copyfileobj(r, f)
 
 manifest = {k: [] for k in FOLDERS}
