@@ -19,6 +19,12 @@ FOLDERS = {
     "glenariffe": "Glenariffe Coast",
 }
 
+EXTRA_MEDIA = {
+    "giants": [
+        "yt:https://youtube.com/shorts/OBK6cIq0G3M?is=svlctIgQWTQY0tH4|https://img.youtube.com/vi/OBK6cIq0G3M/hqdefault.jpg"
+    ]
+}
+
 IMAGE_EXTS = {".jpg", ".jpeg", ".png", ".webp", ".gif"}
 VIDEO_EXTS = {".mp4", ".mov", ".m4v", ".webm"}
 ALLOWED = IMAGE_EXTS | VIDEO_EXTS
@@ -107,6 +113,9 @@ for key, folder in FOLDERS.items():
             target = out / safe
             download(item["path_lower"], target)
         manifest[key].append(target.as_posix())
+
+for key, items in EXTRA_MEDIA.items():
+    manifest.setdefault(key, []).extend(items)
 
 MANIFEST.write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
 print(json.dumps({k: len(v) for k, v in manifest.items()}))
